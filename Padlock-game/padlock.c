@@ -8,7 +8,7 @@ int code_length;
 
 // ----Declare a global pointer for array of user guess code and a global variable for total atempst based on code length----
 int *user_guess_code=NULL;
-int total_atempts;
+int total_attempts,attempts;
 
 // ----Array of color highlight to show user code  hints----
 const char* color_highlight[]={
@@ -17,6 +17,44 @@ const char* color_highlight[]={
     "\033[1;30;42m" // 2: Bold Black Text on Green Background (1 = Bold, 30 = Black Text, 42 = Green BG)
 };
 const char* RESET = "\033[0m";
+
+
+//print win or loss the game using this function
+void win_or_loss(int result){
+    if(result){
+        printf("\n");
+        printf("==============================================\n");
+        printf("🎉 CONGRATULATIONS! PADLOCK UNLOCKED 🎉\n");
+        printf("==============================================\n");
+        printf("You 🔐unlocked the padlock in %d attempts.\n\n", attempts);
+        
+        // Star Ranking Logic
+        printf("YOUR SCORE: ");
+        if(attempts<=total_attempts-2){
+            // Excellent: 5 Stars 
+            printf("🌟🌟🌟🌟🌟 Excellent!\n\n");
+        }else{
+            // Good: 3 Stars
+            printf("🌟🌟🌟 Good!\n\n");
+        }
+        printf("=============================================\n");
+    }else{
+        printf("=============================================\n");
+        printf("❌GAME OVER! YOU LOSS THE GAME❌\n");
+        printf("=============================================\n");
+        printf("You reached the maximum limit of %d attempts.\n", total_attempts);
+        printf("The padlock remains locked. 🔒\n");
+        printf("=============================================\n\n");
+        // Prints the secret answer to the user in a bright color
+        printf("The correct padlock 🔒 combination was: ");
+        for(int i=0;i<code_length;i++){
+            printf("%d ",padlock_code[i]);
+        }
+        printf("🔑\n\n");
+        printf("=============================================\n\n");
+    }
+}
+
 
 //print game instructions and rules based on the difficult level
 void print_game_instructions(int code_length, int total_attempts) {
@@ -44,6 +82,7 @@ void print_game_instructions(int code_length, int total_attempts) {
     printf("==================================================\n");
     printf("Good luck, Enter your first guess...\n\n");
 }
+
 
 // ----Function to generate a user guess code with UNIQUE digits----
 void set_user_guess_code(){
@@ -110,6 +149,50 @@ void set_padlock_code() {
         used_digit[random_digit] = 1; 
     }
 }
+
+
+//----create a game function to compare user code and padlock code, print hints and run the function untill complete all atmepts----
+int game_function(int attempts){
+    
+    int hints[5]={0};//----array to store hints about digits----
+    int check_win=0;//----check win through this variable----
+    
+    //----call the set_user_guess_code function to take user guess code----
+    set_user_guess_code();
+    
+    //----check digits of user_guess_code in padlock_code----
+    for(int i=0;i<code_length;i++){
+        if(user_guess_code[i]==padlock_code[i]){
+            hints[i]=2;
+            check_win++;
+        }else{
+            for(int j=0;j<code_length;j++){
+                if(padlock_code[j]==user_guess_code[i]){
+                    hints[i]=1;
+                }
+            }
+        }
+    }
+    attempts++;
+    for(int i=0;i<code_length;i++){
+        printf(" %s%d%s",color_highlight[hints[i]],user_guess_code[i],RESET);
+    }
+    printf("\n ⚠️ you have %d attempts left!\n\n",total_attempts-attempts);
+    if(check_win==code_length){
+        return 1;
+    }
+    if(attempts>=total_attempts){
+       return 0;
+    }
+    // ----Clean up the memory allocated for this specific round----
+    free(user_guess_code);
+    user_guess_code = NULL;
+    int trail;
+    trail=game_function(attempts);
+}
+
+
+//----main function----
 int main()
 {
     //----⭐ CRITICAL FIX: Seed the random generator ONCE at the start of main----
@@ -148,8 +231,8 @@ int main()
             }
         } while (code_length < 3 || code_length > 5); // ----The loop repeats as long as the condition is TRUE----
         
-        //----total atempst to guess the code based on code length difficulty----
-        total_atempts=(code_length==3)?8:(code_length==4)?9:10;
+        //----total attempts to guess the code based on code length difficulty----
+        total_attempts=(code_length==3)?8:(code_length==4)?9:10;
         
         //----⭐ CRITICAL FIX: Allocate memory for the code length before filling it!----
         padlock_code = (int *)malloc(code_length * sizeof(int));
@@ -162,7 +245,15 @@ int main()
         set_padlock_code();
 
         //----print game rules----
-        print_game_instructions(code_length,total_atempts);
+        print_game_instructions(code_length,total_attempts);
+        
+        //----call game_function----
+        attempts=0;
+        int result;
+        result=game_function(attempts);
+        
+        //----call win_or_loss function----
+        win_or_loss(result);
         
         // ----Clean up the memory allocated for this specific round----
         free(padlock_code);
