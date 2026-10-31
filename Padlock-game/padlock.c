@@ -180,18 +180,21 @@ int game_function(int attempts){
         printf(" %s%d%s",color_highlight[hints[i]],user_guess_code[i],RESET);
     }
     printf("\n ⚠️ you have %d attempts left!\n\n",total_attempts-attempts);
+    
+    // Always free memory before stepping out or drilling down
+    free(user_guess_code);
+    user_guess_code = NULL;
+    
     if(check_win==code_length){
         yourattempts=attempts;
         return 1;//----win the game return 1----
     }
+   
     if(attempts>=total_attempts){
-       return 0;//----loss the game return 0----
+        return 0;//----loss the game return 0----
     }
-    // ----Clean up the memory allocated for this specific round----
-    free(user_guess_code);
-    user_guess_code = NULL;
-    int trail;
-    trail=game_function(attempts);
+    
+    return game_function(attempts);
 }
 
 
