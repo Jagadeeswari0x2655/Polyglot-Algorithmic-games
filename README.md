@@ -2,7 +2,7 @@
 This playground showcases my logical problem-solving skills, algorithmic thinking, and structural syntax adaptability by implementing classic logic puzzles across multiple programming languages.
 ## 🚀 Active Project Tracks
 *   **📂 1-Padlock-game** (In Progress)
-    *   [ ] Pure C Implementation
+    *   [✅] Pure C Implementation
     *   [ ] Java Implementation
     *   [ ] Python Implementation
     *   [ ] JavaScript Implementation
