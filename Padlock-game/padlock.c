@@ -13,7 +13,7 @@ int total_attempts,yourattempts;
 // ----Array of color highlight to show user code  hints----
 const char* color_highlight[]={
     "\033[1;31m",   // 0: Bold Red Text (1 = Bold, 31 = Red)
-    "\033[0;38;5;208m", // 1: Orange Text (Extended 256-color palette index 208)
+    "\033[1;34m", // 1: Orange Text (Extended 256-color palette index 208)
     "\033[1;30;42m" // 2: Bold Black Text on Green Background (1 = Bold, 30 = Black Text, 42 = Green BG)
 };
 const char* RESET = "\033[0m";
@@ -75,7 +75,7 @@ void print_game_instructions(int code_length, int total_attempts) {
     printf("🎨 THE COLOR FEEDBACK SYSTEM:\n");
     printf(" %s X %s -> Green background: number is correct place in lock code\n",color_highlight[2],RESET);
     printf(" %s X %s -> Red text: number is not in lockcode\n",color_highlight[0],RESET);
-    printf(" %s X %s -> Orange text: number is in lock code but not in correct place\n\n",color_highlight[1],RESET);
+    printf(" %s X %s -> blue text: number is in lock code but not in correct place\n\n",color_highlight[1],RESET);
     
     printf("🎯 YOUR DIFFICULTY:\n");
     printf("* Code Length: %d numbers\n", code_length);
