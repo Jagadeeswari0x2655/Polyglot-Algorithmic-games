@@ -13,7 +13,7 @@ int total_attempts,yourattempts;
 // ----Array of color highlight to show user code  hints----
 const char* color_highlight[]={
     "\033[1;31m",   // 0: Bold Red Text (1 = Bold, 31 = Red)
-    "\033[1;34m", // 1: Orange Text (Extended 256-color palette index 208)
+    "\033[1;34m", // 1: Blue Text (Extended 256-color palette index 208)
     "\033[1;30;42m" // 2: Bold Black Text on Green Background (1 = Bold, 30 = Black Text, 42 = Green BG)
 };
 const char* RESET = "\033[0m";
