@@ -198,8 +198,8 @@ int game_function(int attempts){
 }
 
 
-//----main function----
-int main()
+//----Renamed Main Function as start_padlock function to serve as a library hook----
+void start_padlock(void)
 {
     //----⭐ CRITICAL FIX: Seed the random generator ONCE at the start of main----
     srand(time(NULL)); 
@@ -274,5 +274,5 @@ int main()
     }while(replay_choice == 'y' || replay_choice == 'Y');
     
     printf("Thank you for playing the Padlock Game! Goodbye👋.\n\n");
-    return 0;
+    
 }
