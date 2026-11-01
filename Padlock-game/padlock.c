@@ -245,7 +245,6 @@ void start_padlock(void)
         padlock_code = (int *)malloc(code_length * sizeof(int));
         if (padlock_code == NULL) {
             printf("[ERROR❌] Memory allocation failed!\n");
-            return 1; // ----Exit program if computer runs out of memory----
         }
         
         // ----create padlock code to guess----
