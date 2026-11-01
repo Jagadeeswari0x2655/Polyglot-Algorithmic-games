@@ -12,12 +12,10 @@ Polyglot-Algorithmic-games/         <-- Main Root Hub Repository
 │   ├── main.c                       <-- Central C Menu Controller
 │   ├── GameRunner.java              <-- Central Java Menu Controller
 │   ├── main.py                      <-- Central Python Menu Controller
+│   ├── games.h                      <-- Global Handshake Header [Updated Location]
 │   └── README.md                    <-- This Operational Manual
 │
-├── games_hub/                       <-- Shared Blueprints Folder (C Only)
-│   └── games.h                      <-- Global Handshake Header
-│
-├── Padlock-game/                 <-- Padlock Game Sub-Repository
+├── Padlock-game/                    <-- Padlock Game Sub-Repository
 │   ├── padlock.c                    
 │   ├── Padlock.java                 
 │   └── padlock.py                   
