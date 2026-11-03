@@ -270,6 +270,8 @@ void start_padlock(void)
         
         // ----Note: The space before %c skips any leftover newline character in the buffer----
         scanf(" %c", &replay_choice); 
+        // ----🧹 The C Broom: Loop until we hit the end of the line to clear extra text----
+        while ((getchar()) != '\n'); 
         printf("\n");
     }while(replay_choice == 'y' || replay_choice == 'Y');
     
