@@ -1,5 +1,7 @@
 package padlock;
 import java.util.*;
+
+//----all global used data in one class----
 class global_data{
   //---- code_length:store difficulty level based on code length, total_attempts: store total chance to guess the code based on code_length----
   public static int code_length,total_attempts,your_attempts;
@@ -56,14 +58,14 @@ public class Padlock{
                   } else {
                       System.out.printf("\n[ERROR❌] '%d' is invalid! YOUR CHOICE is (3, 4, or 5). Please try again.\n\n",parsedNumber);
                   }
-              } catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                   System.out.println("❌ Invalid Format: Please enter whole numbers only.");
-              }
+                }
           }
+          //----total attempts to guess the code based on code length difficulty----
+          global_data.total_attempts=(global_data.code_length==3)?8:(global_data.code_length==4)?9:10;
+          print_game_instructions();
         /*
-        //----total attempts to guess the code based on code length difficulty----
-        total_attempts=(code_length==3)?8:(code_length==4)?9:10;
-        
         //----⭐ CRITICAL FIX: Allocate memory for the code length before filling it!----
         padlock_code = (int *)malloc(code_length * sizeof(int));
         if (padlock_code == NULL) {
@@ -95,8 +97,35 @@ public class Padlock{
         // ----🧹 The Java Broom: Sweeps the full line out of the way instantly----
         replayChoice= scanner.nextLine().trim().charAt(0);
         System.out.println();
-    }while(replayChoice == 'y' || replayChoice == 'Y');
+      }while(replayChoice == 'y' || replayChoice == 'Y');
     
-    System.out.printf("Thank you for playing the Padlock Game! Goodbye👋.\n\n");
+      System.out.printf("Thank you for playing the Padlock Game! Goodbye👋.\n\n");
+    }
+  
+    //----print game instructions and rules based on the difficult level----
+    private void print_game_instructions() {
+    
+        System.out.printf("\n==================================================\n");
+        System.out.printf("              🔐 THE PADLOCK CODE GAME            \n");
+        System.out.printf("==================================================\n");
+        System.out.printf("A secret passcode has been locked inside the vault.\n");
+        System.out.printf("Your mission is to crack it before you run out of turns!\n\n");
+    
+        System.out.printf("📜 THE RULES:\n");
+        System.out.printf("1. The code is exactly %d digits long.\n", global_data.code_length);
+        System.out.printf("2. Every single digit in the code is UNIQUE (0-9).\n");
+        System.out.printf("3. No duplicate numbers are allowed in your guess.\n\n");
+
+        // ----Clear color definitions added inside your game instructions----
+        System.out.printf("🎨 THE COLOR FEEDBACK SYSTEM:\n");
+        System.out.printf(" %s X %s -> Green background: number is correct place in lock code\n",global_data.color_highlight.get(2),global_data.RESET);
+        System.out.printf(" %s X %s -> Red text: number is not in lockcode\n",global_data.color_highlight.get(0),global_data.RESET);
+        System.out.printf(" %s X %s -> blue text: number is in lock code but not in correct place\n\n",global_data.color_highlight.get(1),global_data.RESET);
+    
+        System.out.printf("🎯 YOUR DIFFICULTY:\n");
+        System.out.printf("* Code Length: %d numbers\n", global_data.code_length);
+        System.out.printf("* Maximum Attempts Allowed: %d\n", global_data.total_attempts);
+        System.out.printf("==================================================\n");
+        System.out.printf("Good luck, Enter your first guess...\n\n");
   }
 }
