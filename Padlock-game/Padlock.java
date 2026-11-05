@@ -4,7 +4,7 @@ import java.util.*;
 //----all global used data in one class----
 class global_data{
   //---- code_length:store difficulty level based on code length, total_attempts: store total chance to guess the code based on code_length----
-  public static int code_length,total_attempts,your_attempts;
+  public static int code_length,total_attempts,yourattempts;
   //----used store secret padlock code----
   public static ArrayList<Integer> padlock_code = new ArrayList<>();
   //----used to store user guessing code----
@@ -128,4 +128,40 @@ public class Padlock{
         System.out.printf("==================================================\n");
         System.out.printf("Good luck, Enter your first guess...\n\n");
   }
+  //----print win or loss the game using this function----
+  private void win_or_loss(int result){
+    if(result){
+        System.out.printf("\n");
+        System.out.printf("==============================================\n");
+        System.out.printf("🎉 CONGRATULATIONS! PADLOCK UNLOCKED 🎉\n");
+        System.out.printf("      🏆🏆🏆YOU WIN THE GAME🏆🏆🏆     \n");
+        System.out.printf("==============================================\n");
+        System.out.printf("You 🔓 🔑 unlocked the padlock in %d attempts 🔐.\n\n", global_data.yourattempts);
+        
+        // ----Star Ranking Logic----
+        System.out.printf("YOUR SCORE: ");
+        if(global_data.yourattempts<=global_data.total_attempts-2){
+            // ----Excellent: 5 Stars----
+            System.out.printf("🌟🌟🌟🌟🌟 Excellent!\n\n");
+        }else{
+            //----Good: 3 Stars----
+            System.out.printf("🌟🌟🌟 Good!\n\n");
+        }
+        System.out.printf("=============================================\n");
+    }else{
+        System.out.printf("=============================================\n");
+        System.out.printf("     ❌❌GAME OVER! YOU LOSS THE GAME❌❌\n");
+        System.out.printf("=============================================\n");
+        System.out.printf("You reached the maximum limit of %d attempts.\n", global_data.total_attempts);
+        System.out.printf("The padlock remains locked. 🔒\n");
+        System.out.printf("=============================================\n\n");
+        // ----Prints the secret answer to the user----
+        System.out.printf("The correct padlock 🔒 combination was: ");
+        for(int i=0;i<global_data.code_length;i++){
+            System.out.printf("%d ",global_data.padlock_code.get(i));
+        }
+        System.out.printf("🔑\n\n");
+        System.out.printf("=============================================\n\n");
+    }
+}
 }
