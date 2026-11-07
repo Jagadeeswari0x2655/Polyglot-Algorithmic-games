@@ -163,5 +163,25 @@ public class Padlock{
         System.out.printf("🔑\n\n");
         System.out.printf("=============================================\n\n");
     }
-}
+  }
+  // ----Function to generate a padlock code with UNIQUE digits----
+  private void set_padlock_code() {
+    
+    // ----Track used digits: index represents the digit (0-9). 0 = unused, 1 = used----
+    int used_digit[10] = {0}; 
+    int random_digit;
+
+    for (int i = 0; i < code_length; i++) {
+        // ----this do while is used to create unique digits in padlock_code array----
+        do {
+             random_digit = rand.nextInt(0, 10);  // ----Generate a digit between 0 and 9----
+        } while (used_digit[random_digit] == 1); // ----If already used, loop again----
+
+        // ----Assign the unique digit to our padlock array----
+        global_data.padlock_code.add(random_digit);
+        
+        // ----Mark this used digit as used so it won't be picked again in this round----
+        used_digit[random_digit] = 1; 
+    }
+  }
 }
