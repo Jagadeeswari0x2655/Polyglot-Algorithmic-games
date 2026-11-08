@@ -19,9 +19,9 @@ class global_data{
 }
 //----Function as start_padlock function to start game----
 public class Padlock{
-  
-  public Padlock(){
       Scanner scanner = new Scanner(System.in);
+  public Padlock(){
+      
       char replayChoice;// ----Variable to store 'y' or 'n' to ask user they want to play again----
       // ----OUTER LOOP: Controls the entire game session----
       do{
@@ -101,6 +101,7 @@ public class Padlock{
     
       System.out.printf("Thank you for playing the Padlock Game! Goodbye👋.\n\n");
     }
+
   
     //----print game instructions and rules based on the difficult level----
     private void print_game_instructions() {
@@ -128,9 +129,11 @@ public class Padlock{
         System.out.printf("==================================================\n");
         System.out.printf("Good luck, Enter your first guess...\n\n");
   }
+
+  
   //----print win or loss the game using this function----
   private void win_or_loss(int result){
-    if(result){
+      if(result==1){
         System.out.printf("\n");
         System.out.printf("==============================================\n");
         System.out.printf("🎉 CONGRATULATIONS! PADLOCK UNLOCKED 🎉\n");
@@ -148,7 +151,7 @@ public class Padlock{
             System.out.printf("🌟🌟🌟 Good!\n\n");
         }
         System.out.printf("=============================================\n");
-    }else{
+      }else{
         System.out.printf("=============================================\n");
         System.out.printf("     ❌❌GAME OVER! YOU LOSS THE GAME❌❌\n");
         System.out.printf("=============================================\n");
@@ -162,26 +165,69 @@ public class Padlock{
         }
         System.out.printf("🔑\n\n");
         System.out.printf("=============================================\n\n");
-    }
+      }
   }
+
+  
   // ----Function to generate a padlock code with UNIQUE digits----
   private void set_padlock_code() {
     
-    // ----Track used digits: index represents the digit (0-9). 0 = unused, 1 = used----
-    int used_digit[10] = {0}; 
+    // ----Track used digits: index represents the digit (0-9). false = unused, true = used----
+    boolean[] used_digit = new boolean[10]; 
+    Random rand = new Random();
     int random_digit;
 
-    for (int i = 0; i < code_length; i++) {
+    for (int i = 0; i < global_data.code_length; i++) {
         // ----this do while is used to create unique digits in padlock_code array----
         do {
              random_digit = rand.nextInt(0, 10);  // ----Generate a digit between 0 and 9----
-        } while (used_digit[random_digit] == 1); // ----If already used, loop again----
+        } while (used_digit[random_digit]); // ----If already used, loop again----
 
         // ----Assign the unique digit to our padlock array----
         global_data.padlock_code.add(random_digit);
         
         // ----Mark this used digit as used so it won't be picked again in this round----
-        used_digit[random_digit] = 1; 
+        used_digit[random_digit] = true; 
     }
   }
+
+  
+  // ----Function to generate a user guess code with UNIQUE digits----
+  private void set_user_guess_code(){
+    
+        // ----Track used digits: index represents the digit (0-9). false = unused, true = used----
+        boolean[] used_digit = new boolean[10]; 
+        int digit;
+    
+        for (int i = 0; i < global_data.code_length; i++) {
+            do {
+                System.out.printf("Enter a unique digit (0-9) for position %d: ", i + 1);
+        
+                // ----Verify scanner actually has a valid integer----
+                if (!scanner.hasNextInt()) {
+                    System.out.println("\n❌Invalid input! Please enter a number.");
+    
+                    // ----⭐ FIX: Consumes and discards the entire invalid line from the buffer ----
+                    scanner.nextLine(); 
+    
+                    digit = -1; // ----Force loop to repeat----
+                    continue;
+                }
+                digit = scanner.nextInt();
+                // ----Verify the number is a single digit----
+                if (digit < 0 || digit > 9) {
+                    System.out.printf("❌Out of range! Must be between 0 and 9.\n");
+                    continue;
+                }
+                // ----Check for duplicates----
+                if (used_digit[digit]) {
+                    System.out.printf("❌Digit %d already used! Try another.\n", digit);
+                }
+            } while (digit < 0 || digit > 9 || used_digit[digit]);
+            
+            // ----Assign and mark as used----
+            global_data.user_code.add(digit);
+            used_digit[digit] = true; 
+        }
+    }
 }
