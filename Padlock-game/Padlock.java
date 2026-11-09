@@ -230,4 +230,49 @@ public class Padlock{
             used_digit[digit] = true; 
         }
     }
+
+  
+    //----create a game function to compare user code and padlock code, print hints and run the function untill complete all atmepts----
+    private int game_function(int attempts){
+    
+          int[] hints = new int[5];//----array to store hints about digits----
+          int check_win=0;//----check win through this variable----
+    
+          //----call the set_user_guess_code function to take user guess code----
+          set_user_guess_code();
+    
+          //----check digits of user_guess_code in padlock_code----
+          for(int i=0;i<global_data.code_length;i++){
+                if(global_data.user_code.get(i)==global_data.padlock_code.get(i)){
+                    hints[i]=2;
+                    check_win++;
+                }else{
+                    for(int j=0;j<global_data.code_length;j++){
+                        if(global_data.padlock_code.get(j)==global_data.user_code.get(i)){
+                            hints[i]=1;
+                        }
+                    }
+                }
+           }
+          attempts++;
+          //----enter the user code with hints using colours based----
+          for(int i=0;i<global_data.code_length;i++){
+                System.out.printf(" %s%d%s",global_data.color_highlight.get(hints[i]),global_data.user_code.get(i),global_data.RESET);
+          }
+          System.out.printf("\n ⚠️ you have %d attempts left!\n\n",global_data.total_attempts-attempts);
+    
+          // Discard the old list and point the variable to a brand-new empty list
+          global_data.user_code = new ArrayList<>();
+    
+          if(check_win==global_data.code_length){
+              global_data.yourattempts=attempts;
+              return 1;//----win the game return 1----
+          }
+   
+          if(attempts>=global_data.total_attempts){
+              return 0;//----loss the game return 0----
+          }
+    
+          return game_function(attempts);
+    }
 }
