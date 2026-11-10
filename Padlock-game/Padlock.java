@@ -3,12 +3,16 @@ import java.util.*;
 
 //----all global used data in one class----
 class global_data{
+  
   //---- code_length:store difficulty level based on code length, total_attempts: store total chance to guess the code based on code_length----
   public static int code_length,total_attempts,yourattempts;
+  
   //----used store secret padlock code----
   public static ArrayList<Integer> padlock_code = new ArrayList<>();
+  
   //----used to store user guessing code----
   public static ArrayList<Integer> user_code = new ArrayList<>();
+  
   // ----TRULY CONSTANT GLOBAL STRING ARRAY (Immutable)----
   public static final List<String> color_highlight = List.of(
       "\033[1;31m",   // 0: Bold Red Text (1 = Bold, 31 = Red)
@@ -16,13 +20,19 @@ class global_data{
       "\033[1;30;42m" // 2: Bold Black Text on Green Background (1 = Bold, 30 = Black Text, 42 = Green BG)
   );
   public static final String RESET ="\033[0m";
+  
 }
+
+
 //----Function as start_padlock function to start game----
 public class Padlock{
-      Scanner scanner = new Scanner(System.in);
+  
+  Scanner scanner = new Scanner(System.in);
+  
   public Padlock(){
       
       char replayChoice;// ----Variable to store 'y' or 'n' to ask user they want to play again----
+    
       // ----OUTER LOOP: Controls the entire game session----
       do{
         
@@ -38,13 +48,16 @@ public class Padlock{
           //----Reset Dynamic ArrayLists (Wipes size to 0)----
             global_data.padlock_code.clear();
             global_data.user_code.clear();
+        
           // ----Define your specified range----
           final int MIN = 3;
           final int MAX = 5;
           int score = 0;
           boolean isValid = false;
+        
           // ----Keep looping until the user gives a valid choice----
           while (!isValid) {
+            
               System.out.printf("Enter your choice (3, 4, or 5): ");
               String input = scanner.nextLine(); // Read full line
 
@@ -58,45 +71,39 @@ public class Padlock{
                   } else {
                       System.out.printf("\n[ERROR❌] '%d' is invalid! YOUR CHOICE is (3, 4, or 5). Please try again.\n\n",parsedNumber);
                   }
+                
                 } catch (NumberFormatException e) {
                   System.out.println("❌ Invalid Format: Please enter whole numbers only.");
                 }
           }
+        
           //----total attempts to guess the code based on code length difficulty----
           global_data.total_attempts=(global_data.code_length==3)?8:(global_data.code_length==4)?9:10;
           print_game_instructions();
-        /*
-        //----⭐ CRITICAL FIX: Allocate memory for the code length before filling it!----
-        padlock_code = (int *)malloc(code_length * sizeof(int));
-        if (padlock_code == NULL) {
-            printf("[ERROR❌] Memory allocation failed!\n");
-        }
-        */
-        /*
-        // ----create padlock code to guess----
-        set_padlock_code();
+        
+          // ----create padlock code to guess----
+          set_padlock_code();
 
-        //----print game rules----
-        print_game_instructions(code_length,total_attempts);
+          //----print game rules----
+          print_game_instructions();
         
-        //----call game_function----
-        int attempts=0;
-        int result;
-        result=game_function(attempts);
+          //----call game_function----
+          int attempts=0;
+          int result;
+          result=game_function(attempts);
         
-        //----call win_or_loss function----
-        win_or_loss(result);
+          //----call win_or_loss function----
+          win_or_loss(result);
+          /*
+          // ----Clean up the memory allocated for this specific round----
+          global_data.padlock_code = new ArrayList<>();
+          */
+          // ----Ask the user if they want to play again----
+          System.out.printf("\nDo you want to play again? (y/n): ");
         
-        // ----Clean up the memory allocated for this specific round----
-        free(padlock_code);
-        padlock_code = NULL;
-        */
-        // ----Ask the user if they want to play again----
-        System.out.printf("\nDo you want to play again? (y/n): ");
-        
-        // ----🧹 The Java Broom: Sweeps the full line out of the way instantly----
-        replayChoice= scanner.nextLine().trim().charAt(0);
-        System.out.println();
+          // ----🧹 The Java Broom: Sweeps the full line out of the way instantly----
+          replayChoice= scanner.nextLine().trim().charAt(0);
+          System.out.println();
       }while(replayChoice == 'y' || replayChoice == 'Y');
     
       System.out.printf("Thank you for playing the Padlock Game! Goodbye👋.\n\n");
@@ -158,6 +165,7 @@ public class Padlock{
         System.out.printf("You reached the maximum limit of %d attempts.\n", global_data.total_attempts);
         System.out.printf("The padlock remains locked. 🔒\n");
         System.out.printf("=============================================\n\n");
+        
         // ----Prints the secret answer to the user----
         System.out.printf("The correct padlock 🔒 combination was: ");
         for(int i=0;i<global_data.code_length;i++){
