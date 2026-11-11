@@ -1,4 +1,4 @@
-package padlock;
+package Padlock;
 import java.util.*;
 
 //----all global used data in one class----
