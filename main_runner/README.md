@@ -10,7 +10,7 @@ Polyglot-Algorithmic-games/         <-- Main Root Hub Repository
 │
 ├── main_runner/                     <-- Central Dashboard Workspace
 │   ├── main.c                       <-- Central C Menu Controller
-│   ├── GameRunner.java              <-- Central Java Menu Controller
+│   ├── Main.java                    <-- Central Java Menu Controller
 │   ├── main.py                      <-- Central Python Menu Controller
 │   ├── games.h                      <-- Global Handshake Header [Updated Location]
 │   └── README.md                    <-- This Operational Manual
@@ -52,11 +52,11 @@ Java compiles the central class menu alongside the sub-repository file layouts b
 
 * **Compilation Command:**
   ```bash
-  javac main_runner/GameRunner.java padlock-subrepo/Padlock.java
+  javac -d out main_runner/*.java Padlock-game/*.java
   ```
 * **Execution Command:**
   ```bash
-  java main_runner.GameRunner
+  java -cp out Main
   ```
 
 ### 3. Running the Python Dashboard Matrix
