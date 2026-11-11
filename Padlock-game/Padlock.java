@@ -102,7 +102,8 @@ public class Padlock{
           System.out.printf("\nDo you want to play again? (y/n): ");
         
           // ----🧹 The Java Broom: Sweeps the full line out of the way instantly----
-          replayChoice= scanner.nextLine().trim().charAt(0);
+          replayChoice = scanner.next().trim().charAt(0);
+          scanner.nextLine(); // ----Clears out extra input and the Enter key----
           System.out.println();
       }while(replayChoice == 'y' || replayChoice == 'Y');
     
