@@ -3,7 +3,7 @@ This playground showcases my logical problem-solving skills, algorithmic thinkin
 ## 🚀 Active Project Tracks
 *   **📂 1-Padlock-game** (In Progress)
     *   [✅] Pure C Implementation
-    *   [ ] Java Implementation
+    *   [✅] Java Implementation
     *   [ ] Python Implementation
     *   [ ] JavaScript Implementation
 ## 🛠️ Portfolio Goals
