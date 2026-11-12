@@ -203,40 +203,61 @@ public class Padlock{
   
   // ----Function to generate a user guess code with UNIQUE digits----
   private void set_user_guess_code(){
-    
-        // ----Track used digits: index represents the digit (0-9). false = unused, true = used----
-        boolean[] used_digit = new boolean[10]; 
-        int digit;
-    
-        for (int i = 0; i < global_data.code_length; i++) {
-            do {
-                System.out.printf("Enter a unique digit (0-9) for position %d: ", i + 1);
+      String input;  
+      boolean isValid;
+
+      // ----Clear previous guesses if this method is called multiple times per round----
+      global_data.user_code.clear();
+
+      do {
+          isValid = true;
+          boolean[] used_digit = new boolean[10];
         
-                // ----Verify scanner actually has a valid integer----
-                if (!scanner.hasNextInt()) {
-                    System.out.println("\n❌Invalid input! Please enter a number.");
-    
-                    // ----⭐ FIX: Consumes and discards the entire invalid line from the buffer ----
-                    scanner.nextLine(); 
-    
-                    digit = -1; // ----Force loop to repeat----
-                    continue;
-                }
-                digit = scanner.nextInt();
-                // ----Verify the number is a single digit----
-                if (digit < 0 || digit > 9) {
-                    System.out.printf("❌Out of range! Must be between 0 and 9.\n");
-                    continue;
-                }
-                // ----Check for duplicates----
-                if (used_digit[digit]) {
-                    System.out.printf("❌Digit %d already used! Try another.\n", digit);
-                }
-            } while (digit < 0 || digit > 9 || used_digit[digit]);
-            
-            // ----Assign and mark as used----
-            global_data.user_code.add(digit);
-            used_digit[digit] = true; 
+          System.out.printf("Enter a %d-digit code with unique numbers (e.g., 123): ", global_data.code_length);
+        
+          // ----Reads the ENTIRE line, including any accidental spaces----
+          input = scanner.nextLine().trim();
+
+          // ----Optional: If you WANT to allow spaces like "12 45" and treat it as "1245", uncomment the line below:
+          // input = input.replaceAll("\\s+", "");
+        
+
+          // ----1. Check if the input matches the required code length----
+          if (input.length() != global_data.code_length) {
+            System.out.printf("❌ Invalid length! Please enter exactly %d digits.\n", global_data.code_length);
+            isValid = false;
+            continue;
+          }
+
+          // ----2. Validate every character in the string----
+          for (int i = 0; i < input.length(); i++) {
+              char ch = input.charAt(i);
+
+              // ----Check if the character is a number (0-9)----
+              if (!Character.isDigit(ch)) {
+                  System.out.println("❌ Invalid input! Only numeric digits (0-9) are allowed.");
+                  isValid = false;
+                  break;
+              }
+
+              // ----Convert char to its integer value----
+              int digit = Character.getNumericValue(ch);
+
+              // ----Check for duplicate digits----
+              if (used_digit[digit]) {
+                  System.out.printf("❌ Duplicate digit '%d' found! All digits must be unique.\n", digit);
+                  isValid = false;
+                  break;
+              }
+
+              used_digit[digit] = true;
+          }
+
+        } while (!isValid);
+
+        // ----3. Store the validated digits into your list----
+        for (int i = 0; i < input.length(); i++) {
+          global_data.user_code.add(Character.getNumericValue(input.charAt(i)));
         }
     }
 
