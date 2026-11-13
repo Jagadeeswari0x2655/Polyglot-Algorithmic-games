@@ -218,8 +218,8 @@ public class Padlock{
           // ----Reads the ENTIRE line, including any accidental spaces----
           input = scanner.nextLine().trim();
 
-          // ----Optional: If you WANT to allow spaces like "12 45" and treat it as "1245", uncomment the line below:
-          // input = input.replaceAll("\\s+", "");
+          // ----If you WANT to allow spaces like "12 45" and treat it as "1245" ----
+          input = input.replaceAll("\\s+", "");
         
 
           // ----1. Check if the input matches the required code length----
