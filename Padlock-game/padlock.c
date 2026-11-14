@@ -87,49 +87,63 @@ void print_game_instructions(int code_length, int total_attempts) {
 
 
 // ----Function to generate a user guess code with UNIQUE digits----
-void set_user_guess_code(){
-    
-        //----⭐ CRITICAL FIX: Allocate memory for the code length before filling it!----
-        user_guess_code = (int *)malloc(code_length * sizeof(int));
-        if (user_guess_code == NULL) {
-            printf("[ERROR❌] Memory allocation failed!\n");
-        }
-    
-        // ----Track used digits: index represents the digit (0-9). 0 = unused, 1 = used----
-        int used_digit[10] = {0}; 
-        int digit;
-    
-        for (int i = 0; i < code_length; i++) {
-            do {
-                printf("Enter a unique digit (0-9) for position %d: ", i + 1);
-        
-                // ----Verify scanf actually read a valid integer----
-                if (scanf("%d", &digit) != 1) {
-                    printf("\n❌Invalid input! Please enter a number.\n");
-                    
-                    // ----Clear the stuck character from the input buffer----
-                    while (getchar() != '\n'); 
-                    digit = -1; //----Force loop to repeat----
-                    continue;
-                }
-                
-                // ----Verify the number is a single digit----
-                if (digit < 0 || digit > 9) {
-                    printf("❌Out of range! Must be between 0 and 9.\n");
-                    continue;
-                }
-                // ----Check for duplicates----
-                if (used_digit[digit] == 1) {
-                    printf("❌Digit %d already used! Try another.\n", digit);
-                }
-            } while (digit < 0 || digit > 9 || used_digit[digit] == 1);
-            
-            // ----Assign and mark as used----
-            user_guess_code[i] = digit;
-            used_digit[digit] = 1; 
-        }
-}
+void set_user_guess_code() {
+    // ----Allocate memory for the code length----
+    user_guess_code = (int *)malloc(code_length * sizeof(int));
+    if (user_guess_code == NULL) {
+        printf("[ERROR❌] Memory allocation failed!\n");
+        return; //----Stop execution if memory allocation fails----
+    }
 
+    char input[100]; // ----Buffer to hold the user's string input----
+    int valid_input = 0;
+
+    while (!valid_input) {
+        printf("Enter a %d-digit code with unique digits (e.g., 123): ", code_length);
+        
+        if (scanf("%99s", input) != 1) {
+            printf("❌ Invalid input! Try again.\n");
+            while (getchar() != '\n'); // ----Clear buffer----
+            continue;
+        }
+
+        // ----Clear any leftover characters if the user typed spaces----
+        while (getchar() != '\n');
+
+        // ----1. Check if the length matches code_length----
+        if ((int)strlen(input) != code_length) {
+            printf("❌ Invalid length! You must enter exactly %d digits.\n", code_length);
+            continue;
+        }
+
+        int used_digit[10] = {0};
+        valid_input = 1; // ----Assume valid until proven otherwise----
+
+        // ----2. Validate every character and check for duplicates----
+        for (int i = 0; i < code_length; i++) {
+            // ----Check if character is a digit (0-9)----
+            if (!isdigit((unsigned char)input[i])) {
+                printf("❌ Invalid character '%c'! Only digits 0-9 are allowed.\n", input[i]);
+                valid_input = 0;
+                break;
+            }
+
+            // ----Convert char '0'-'9' to integer 0-9----
+            int digit = input[i] - '0';
+
+            // ----Check for duplicate digits----
+            if (used_digit[digit] == 1) {
+                printf("❌ Digit %d is repeated! All digits must be unique.\n", digit);
+                valid_input = 0;
+                break;
+            }
+
+            // ----Store the digit and mark it as used----
+            user_guess_code[i] = digit;
+            used_digit[digit] = 1;
+        }
+    }
+}
 
 // ----Function to generate a padlock code with UNIQUE digits----
 void set_padlock_code() {
