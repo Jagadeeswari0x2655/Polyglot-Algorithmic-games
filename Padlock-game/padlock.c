@@ -92,23 +92,30 @@ void set_user_guess_code() {
     user_guess_code = (int *)malloc(code_length * sizeof(int));
     if (user_guess_code == NULL) {
         printf("[ERROR❌] Memory allocation failed!\n");
-        return; //----Stop execution if memory allocation fails----
+        return; // ----Stop execution if memory allocation fails----
     }
 
-    char input[100]; // ----Buffer to hold the user's string input----
+    char raw_input[100]; // ----Buffer to hold the full line including spaces----
+    char input[100];     // ----Buffer to hold the cleaned input without spaces----
     int valid_input = 0;
 
     while (!valid_input) {
-        printf("Enter a %d-digit code with unique digits (e.g., 123): ", code_length);
+        printf("Enter a %d-digit code with unique digits (e.g., 123 or 1 2 3): ", code_length);
         
-        if (scanf("%99s", input) != 1) {
+        // ----Read the entire line including spaces----
+        if (fgets(raw_input, sizeof(raw_input), stdin) == NULL) {
             printf("❌ Invalid input! Try again.\n");
-            while (getchar() != '\n'); // ----Clear buffer----
             continue;
         }
 
-        // ----Clear any leftover characters if the user typed spaces----
-        while (getchar() != '\n');
+        // ----Remove spaces and newline characters----
+        int j = 0;
+        for (int i = 0; raw_input[i] != '\0'; i++) {
+            if (raw_input[i] != ' ' && raw_input[i] != '\n' && raw_input[i] != '\r') {
+                input[j++] = raw_input[i];
+            }
+        }
+        input[j] = '\0'; // ----Null-terminate the cleaned string----
 
         // ----1. Check if the length matches code_length----
         if ((int)strlen(input) != code_length) {
@@ -129,7 +136,8 @@ void set_user_guess_code() {
             }
 
             // ----Convert char '0'-'9' to integer 0-9----
-            int digit = input[i] - '0';
+            int digit = input[i] - '0';//---- as same as result # int digit=input[i]-'0' # ----
+            //----Example with '4': '4' - '0' translates to 52 - 48, which equals 4. ----
 
             // ----Check for duplicate digits----
             if (used_digit[digit] == 1) {
@@ -144,6 +152,7 @@ void set_user_guess_code() {
         }
     }
 }
+
 
 // ----Function to generate a padlock code with UNIQUE digits----
 void set_padlock_code() {
