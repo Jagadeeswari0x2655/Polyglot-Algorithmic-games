@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h> // ----Required for malloc and rand() and srand()----
 #include <time.h>   // ----Required for time()----
+#include <string.h> // ----Required for strlen()----
+#include <ctype.h>  // ----Required for isdigit()----
 #include "../main_runner/game.h" // ----🔍 CRITICAL FIX: Steps out, looks inside main_runner----
 
 // ----Declare a global pointer for array of padlock code and a global variable for size of code length----
