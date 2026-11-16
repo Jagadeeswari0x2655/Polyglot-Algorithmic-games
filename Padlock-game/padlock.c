@@ -102,8 +102,8 @@ void set_user_guess_code() {
     int valid_input = 0;
 
     // ----Clear any leftover newline from previous scanf() calls----
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
+    //int c;
+    //while ((c = getchar()) != '\n' && c != EOF);
 
     while (!valid_input) {
         printf("Enter a %d-digit code with unique digits (e.g., 123 or 1 2 3): ", code_length);
