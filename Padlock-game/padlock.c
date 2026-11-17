@@ -260,6 +260,8 @@ void start_padlock(void)
                 code_length = 0; // Force loop to repeat
                 continue;
             }
+            // 👇 MAKE SURE THIS LINE IS HERE (Right after scanf succeeds!)
+            while (getchar() != '\n'); 
             
             // ----Check if the choice is invalid to print a warning----
             if (code_length < 3 || code_length > 5) {
