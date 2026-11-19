@@ -6,6 +6,11 @@ This playground showcases my logical problem-solving skills, algorithmic thinkin
     *   [✅] Java Implementation
     *   [ ] Python Implementation
     *   [ ] JavaScript Implementation
+*   **📂 2-TicTocToe-game** (In Progress)
+    *   [ ] Pure C Implementation
+    *   [ ] Java Implementation
+    *   [ ] Python Implementation
+    *   [ ] JavaScript Implementation           
 ## 🛠️ Portfolio Goals
 The core objective of this project is to highlight clean structural transitions across different language paradigms:
 1.  **C Track:** Direct memory allocation layout and raw console text formatting.
