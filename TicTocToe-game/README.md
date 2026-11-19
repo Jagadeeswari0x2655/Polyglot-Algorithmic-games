@@ -42,7 +42,7 @@ The engine evaluates 8 distinct winning vectors (3 rows, 3 columns, and 2 diagon
 
 * **Player vs. Player (2-Player Local):**
   * 🤝 **Mode:** Alternating turn-based input on a shared screen/terminal.
-  * 🏆 **Outcome:** First player to complete a 3-cell line wins; filling all 9 cells without a line triggers a **Draw**.
+  * 🏆 **Outcome:** First player to complete a 3-cell line wins; filling all 9 cells without a line       triggers a **Draw**.
 
 ---
 
@@ -59,55 +59,3 @@ TicTocToe-game/
 ├── javascript/         # Node.js CLI / Browser implementation leveraging event-driven or async readline I/O
 └── README.md           # Sub-repository documentation
 ```
-
-### ⚙️ Shared Component Blueprint
-* **`main()` / Entry Point:** Coordinates application setup initialization, manages mode selection menus, resets board state between rounds, and controls the primary turn loop.
-* **`render_board()` / `displayBoard()`:** Formats and prints the 3x3 grid with ANSI color styling and coordinate guides so players can read the board state at a glance.
-* **`get_player_move()` / `validateInput()`:** Intercepts user inputs safely, clears invalid input buffers, verifies that the chosen coordinate falls within `1–9`, and confirms the target cell is empty.
-* **`get_best_move()` / `minimax()`:** Recursively simulates future move sequences, scoring terminal states (`+10` for AI win, `-10` for human win, `0` for draw) to select the mathematically optimal coordinate.
-* **`check_winner()` / `evaluateBoard()`:** Scans all 8 winning lines and remaining empty cells after every move to trigger immediate win/draw end-of-game summaries.
-
----
-
-## 🔧 Installation & Execution
-
-### Prerequisites
-Ensure you have the required compilers and runtimes installed for the implementation you wish to run:
-* **C:** `gcc` or `clang`
-* **Java:** JDK 17+ (`javac` & `java`)
-* **Python:** Python 3.8+ (`python3`)
-* **JavaScript:** Node.js 18+ (`node`) or a modern web browser
-
-### Execution Pipeline
-
-1. **Navigate to the Sub-Repository**  
-   Open your terminal inside the main `polyglot-algorithm-game` directory:
-   ```bash
-   cd TicTocToe-game
-   ```
-
-2. **Run by Language**
-
-   * **C Implementation:**
-     ```bash
-     cd c
-     gcc tictactoe.c -o tictactoe && ./tictactoe
-     ```
-
-   * **Java Implementation:**
-     ```bash
-     cd java
-     javac TicTacToe.java && java TicTacToe
-     ```
-
-   * **Python Implementation:**
-     ```bash
-     cd python
-     python3 tictactoe.py
-     ```
-
-   * **JavaScript Implementation (Node.js):**
-     ```bash
-     cd javascript
-     node tictactoe.js
-     ```
