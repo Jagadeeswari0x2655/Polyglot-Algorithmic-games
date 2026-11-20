@@ -27,6 +27,15 @@ Every match follows a structured three-step configuration prompt before renderin
 3. **Choose Turn Order (`1st` or `2nd`):** Decide who makes the opening move on the 3x3 board—allowing you to test opening advantages or counter-strategies regardless of your chosen symbol.
 
 ---
+## 🎮 Game Modes & AI Architecture
+
+| Game Mode | AI Decision Strategy | Purpose in Portfolio |
+| :--- | :--- | :--- |
+| **Player vs. Player (Local)** | Alternates turn prompts between Player 1 and Player 2 | Demonstrates clean 2-player state toggling and win/draw checks |
+| **Player vs. AI (Easy)** | Picks a random valid empty cell using `rand()` | Shows basic randomization and boundary validation |
+| **Player vs. AI (Medium)** | Checks for an immediate winning move or blocks an immediate opponent win; otherwise falls back to a random move | Demonstrates heuristic/rule-based lookahead |
+| **Player vs. AI (Hard)** | Evaluates all board states using the Minimax algorithm (optionally with Alpha-Beta pruning) | Showcases recursion, game-tree search, and optimal decision-making |
+
 
 ## 🎨 Visual Board & Symbol Indicators
 
