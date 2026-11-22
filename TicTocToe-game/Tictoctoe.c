@@ -97,20 +97,45 @@ void start_tictoctoe(void)
         
         //----Setup Players & Marks----
         if (mode == 1) {
-            printf("Player 1, choose your mark (X or O): ");
-            scanf(" %c", &p1Mark);
-            p1Mark = toupper(p1Mark);
-            p2Mark = (p1Mark == 'X') ? 'O' : 'X';
-        } else {
-            printf("Do you want to be Player 1 (moves 1st) or Player 2 (moves 2nd)? (1/2): ");
-            scanf("%d", &userTurn);
+                do {
+                    printf("Player 1, choose your mark (X or O): ");
+                    scanf(" %c", &p1Mark);
+                    while (getchar() != '\n'); // ----Clear extra input buffer----
+                    p1Mark = toupper(p1Mark);
+        
+                    if (p1Mark != 'X' && p1Mark != 'O') {
+                        printf("Invalid input! Please enter X or O.\n");
+                     }
+                } while (p1Mark != 'X' && p1Mark != 'O');
 
-            printf("Choose your mark (X or O): ");
-            scanf(" %c", &userMark);
-            userMark = toupper(userMark);
+                p2Mark = (p1Mark == 'X') ? 'O' : 'X';
+
+        } else {
+            //----set the turn----
+            while (1) {
+                printf("Do you want to be Player 1 (moves 1st) or Player 2 (moves 2nd)? (1/2): ");
+                if (scanf("%d", &userTurn) == 1 && (userTurn == 1 || userTurn == 2)) {
+                    while (getchar() != '\n'); // ----Clear extra input buffer----
+                    break;
+                }
+                printf("Invalid input! Please enter 1 or 2.\n");
+                while (getchar() != '\n'); // ----Clear invalid input from buffer----
+            }
+            //---- set the usermark----
+            do {
+                printf("Choose your mark (X or O): ");
+                scanf(" %c", &userMark);
+                while (getchar() != '\n'); // ----Clear extra input buffer----
+                userMark = toupper(userMark);
+        
+                if (userMark != 'X' && userMark != 'O') {
+                    printf("Invalid input! Please enter X or O.\n");
+                }
+            } while (userMark != 'X' && userMark != 'O');
+
             aiMark = (userMark == 'X') ? 'O' : 'X';
 
-            // Assign marks to Player 1 and Player 2 slots based on user's turn choice
+            // ----Assign marks to Player 1 and Player 2 slots based on user's turn choice----
             if (userTurn == 1) {
                 p1Mark = userMark;
                 p2Mark = aiMark;
@@ -119,6 +144,7 @@ void start_tictoctoe(void)
                 p2Mark = userMark;
             }
         }
+
         //----print instructions----
         printInstructions(mode, userTurn, p1Mark, p2Mark);
 
