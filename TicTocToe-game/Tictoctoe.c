@@ -1,5 +1,27 @@
 #include <stdio.h>
 
+//----delcare the gird and used globally in a function----
+char grid={
+    {'1','2','3'},
+    {'4','5','6'},
+    {'7','8','9'}
+};
+
+//----function to change the value in grid----
+void change_grid(int choice,char symbol){
+    switch(choice){
+        case 1: grid[0][0] = symbol; break;
+        case 2: grid[0][1] = symbol; break;
+        case 3: grid[0][2] = symbol; break;
+        case 4: grid[1][0] = symbol; break;
+        case 5: grid[1][1] = symbol; break;
+        case 6: grid[1][2] = symbol; break;
+        case 7: grid[2][0] = symbol; break;
+        case 8: grid[2][1] = symbol; break;
+        case 9: grid[2][2] = symbol; break;
+    }
+}
+
 void printInstructions(int mode, int userTurn, char p1Mark, char p2Mark) {
     printf("\n+-----------------------------------------+\n");
     printf("|           📜 HOW TO PLAY                |\n");
