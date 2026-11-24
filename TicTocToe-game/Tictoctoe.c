@@ -22,6 +22,23 @@ void change_grid(int choice,char symbol){
     }
 }
 
+void print_grid(){
+    for(int i=0;i<3;i++){
+        for(int j=0;j<3;j++){
+            if(grid[i][j]=='X'){
+                printf("%s%c%s","\033[1;36m",grid[i][j],"\033[0m");
+            }else if(grid[i][j]=='O'){
+                printf("%s%c%s","\033[1;33m,grid[i][j],\033[0m");
+            }else{
+                printf("%s%c%s","\033[0;37m,grid[i][j],\033[0m");
+            }
+            if (j < 2) printf("|"); // ----Vertical divider between columns----
+        }
+        printf("\n"); // ----Move to the next row----
+        if (i < 2) printf("---+---+---\n"); // ----Horizontal divider between rows----
+    }
+}
+
 void printInstructions(int mode, int userTurn, char p1Mark, char p2Mark) {
     printf("\n+-----------------------------------------+\n");
     printf("|           📜 HOW TO PLAY                |\n");
