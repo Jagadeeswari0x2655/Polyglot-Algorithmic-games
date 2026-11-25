@@ -22,6 +22,26 @@ void change_grid(int choice,char symbol){
     }
 }
 
+//----check win function----
+int check_win_function(){
+    
+    //----check rows----
+    if((grid[0][0]==grid[0][1])&&(grid[0][1]==grid[0][2])) return 1;
+    if((grid[1][0]==grid[1][1])&&(grid[1][1]==grid[1][2])) return 1;
+    if((grid[2][0]==grid[2][1])&&(grid[2][1]==grid[2][2])) return 1;
+    
+    //----check diagonal----
+    if((grid[0][0]==grid[1][1])&&(grid[1][1]==grid[2][2])) return 1;
+    if((grid[0][2]==grid[1][1])&&(grid[1][1]==grid[2][0])) return 1;
+    
+    //----check columns----
+    if((grid[0][0]==grid[1][0])&&(grid[1][0]==grid[2][0])) return 1;
+    if((grid[0][1]==grid[1][1])&&(grid[1][1]==grid[2][1])) return 1;
+    if((grid[0][2]==grid[1][2])&&(grid[1][2]==grid[2][2])) return 1;
+
+    //----no winner yet----
+    return 0;  
+}
 void print_grid(){
     for(int i=0;i<3;i++){
         for(int j=0;j<3;j++){
