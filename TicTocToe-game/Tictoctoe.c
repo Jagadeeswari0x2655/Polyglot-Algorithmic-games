@@ -7,6 +7,52 @@ char grid={
     {'7','8','9'}
 };
 
+//----player vs player function----
+int player_vs_player(char p1Mark, char p2Mark) {
+    int count = 1; 
+    int pos;
+    int win = 0;
+
+    do {
+        // --- Player 1 Turn ---
+        print_grid();
+        printf("Enter the position for player 1: ");
+        scanf("%d", &pos);
+        
+        change_grid(pos, p1Mark);
+        count++;
+        
+        win = check_win();
+        if (win) {
+            print_grid(); // ----Show winning board----
+            return 1;     // ----Player 1 wins----
+        }
+
+        // ----Stop if all 9 spaces are filled (Draw)----
+        if (count > 9) {
+            break;
+        }
+
+        // --- Player 2 Turn ---
+        print_grid();
+        printf("Enter the position for player 2: ");
+        scanf("%d", &pos);
+        
+        change_grid(pos, p2Mark);
+        count++;
+        
+        win = check_win();
+        if (win) {
+            print_grid(); // ----Show winning board----
+            return 2;     // ----Player 2 wins----
+        }
+
+    } while (count <= 9);
+
+    print_grid(); // ----Show final draw board----
+    return 0;     // ----Draw----
+}
+
 //----function to change the value in grid----
 void change_grid(int choice,char symbol){
     switch(choice){
@@ -23,7 +69,7 @@ void change_grid(int choice,char symbol){
 }
 
 //----check win function----
-int check_win_function(){
+int check_win(){
     
     //----check rows----
     if((grid[0][0]==grid[0][1])&&(grid[0][1]==grid[0][2])) return 1;
