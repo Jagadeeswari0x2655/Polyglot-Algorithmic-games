@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <ctype.h>
 
 //----delcare the gird and used globally in a function----
-char grid={
+char grid[3][3]={
     {'1','2','3'},
     {'4','5','6'},
     {'7','8','9'}
