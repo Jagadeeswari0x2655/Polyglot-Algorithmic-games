@@ -18,6 +18,6 @@ void start_padlock(void);
  * @brief Placeholder interface hook for the upcoming Tic-Tac-Toe Game engine.
  * Will manage 2D array state tracks and win-condition validations.
  */
-// void start_tictactoe(void);
+void start_tictactoe(void);
 
 #endif /* GAME_H */
