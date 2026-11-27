@@ -37,9 +37,8 @@ int main(void) {
                 printf("==================================================\n");
                 break;
             case 3:
-                printf("\n==================================================\n");
-                printf("❌⭕ [Tic-Tac-Toe Coming Soon!] Feature slot is fully ready.\n");
-                printf("==================================================\n");
+                // ----Jumps across directories directly into your tic-tac-toe logic!----
+                start_tictactoe();
                 break;
             case 4:
                 printf("\nThank you for exploring the algorithmic game matrix! Closing console dashboard...\n\n");
