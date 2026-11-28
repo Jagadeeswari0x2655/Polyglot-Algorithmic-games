@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
+#include "../main_runner/game.h" // ----🔍 CRITICAL FIX: Steps out, looks inside main_runner----
 
 //----delcare the gird and used globally in a function----
 char grid[3][3]={
